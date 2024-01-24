@@ -1,0 +1,37 @@
+name: Cypress Cache
+description: Creates node_modules and Cypress cache
+
+inputs:
+  path:
+    description: 'path of the cypress cache'
+    default: ".cache/Cypress"
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Create nodule_modules Cache
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: node-modules-v1-${{ steps.vars.outputs.branch }}-${{ hashFiles('yarn.lock') }}
+
+    - name: Create Cypress Cache ${{ inputs.path }}
+      uses: actions/cache@v3
+      with:
+        path: ${{ inputs.path }}
+        key: cypress-v1-${{ steps.vars.outputs.branch }}-${{ hashFiles('yarn.lock') }}
+
+    - name: Create Cypress Cache (.cache)
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/.cache
+        key: cache-v1-${{ steps.vars.outputs.branch }}-${{ hashFiles('yarn.lock') }}
+
+    - name: Install Cypress Project Dependencies
+      shell: bash
+      run: |
+        mkdir -p ${{ inputs.path }}
+        yarn install
