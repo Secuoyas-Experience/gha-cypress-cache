@@ -10,25 +10,30 @@ runs:
   using: composite
   steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3     
+
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=${{ github.head_ref || github.ref_name }}}" >> $GITHUB_OUTPUT
+      id: extract_branch
 
     - name: Create nodule_modules Cache
       uses: actions/cache@v3
       with:
         path: node_modules
-        key: node-modules-v1-${{ steps.vars.outputs.branch }}-${{ hashFiles('yarn.lock') }}
+        key: node-modules-v1-${{ steps.extract_branch.outputs.branch }}-${{ hashFiles('yarn.lock') }}
 
     - name: Create Cypress Cache ${{ inputs.path }}
       uses: actions/cache@v3
       with:
         path: ${{ inputs.path }}
-        key: cypress-v1-${{ steps.vars.outputs.branch }}-${{ hashFiles('yarn.lock') }}
+        key: cypress-v1-${{ steps.extract_branch.outputs.branch }}-${{ hashFiles('yarn.lock') }}
 
     - name: Create Cypress Cache (.cache)
       uses: actions/cache@v3
       with:
         path: /home/runner/_work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/.cache
-        key: cache-v1-${{ steps.vars.outputs.branch }}-${{ hashFiles('yarn.lock') }}
+        key: cache-v1-${{ steps.extract_branch.outputs.branch }}-${{ hashFiles('yarn.lock') }}
 
     - name: Install Cypress Project Dependencies
       shell: bash
