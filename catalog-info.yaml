@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: gha-cypress-cache
+  description: Github action para generar la cache de Cypress
+  annotations:
+    github.com/project-slug: Secuoyas-Experience/gha-cypress-cache
+    backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://github.com/Secuoyas-Experience/gha-cypress-cache
+      title: Secuoyas Cypress Cache Github Action
+spec:
+  type: library
+  owner: infrastructure
+  system: Secuoyas-Experience
+  lifecycle: production
