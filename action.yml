@@ -39,4 +39,4 @@ runs:
       shell: bash
       run: |
         mkdir -p ${{ inputs.path }}
-        yarn install
+        CYPRESS_CACHE_FOLDER="${{ inputs.path }}" yarn install
