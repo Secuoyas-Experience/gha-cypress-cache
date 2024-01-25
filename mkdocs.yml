@@ -1,0 +1,4 @@
+site_name: gha-cypress-cache
+site_url: https://github.com/Secuoyas-Experience/gha-cypress-cache
+nav:
+  - README.md
