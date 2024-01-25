@@ -5,7 +5,6 @@ metadata:
   description: Github action para generar la cache de Cypress
   annotations:
     github.com/project-slug: Secuoyas-Experience/gha-cypress-cache
-    backstage.io/techdocs-ref: dir:.
   links:
     - url: https://github.com/Secuoyas-Experience/gha-cypress-cache
       title: Secuoyas Cypress Cache Github Action
