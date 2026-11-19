@@ -10,7 +10,7 @@ runs:
   using: composite
   steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Extract branch name
       shell: bash
@@ -18,13 +18,13 @@ runs:
       id: extract_branch
 
     - name: Create nodule_modules Cache
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: node_modules
         key: node-modules-v1-${{ steps.extract_branch.outputs.branch }}-${{ hashFiles('yarn.lock') }}
 
     - name: Create Cypress Cache ${{ inputs.path }}
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ${{ inputs.path }}
         key: cypress-v1-${{ steps.extract_branch.outputs.branch }}-${{ hashFiles('yarn.lock') }}
